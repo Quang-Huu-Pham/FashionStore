@@ -21,7 +21,7 @@ def register(request):
 
 
 def index(request):
-    products = Product.objects.all()[0:5]
+    products = Product.objects.all()[0:8]
     categories = Category.objects.all()
     classifies = Classify.objects.all()
 
@@ -44,7 +44,7 @@ def index(request):
     page = request.GET.get('page', '')
 
     if page:
-        products = Product.objects.all()[0:6+int(page)]
+        products = Product.objects.all()[0:8+int(page)]
 
     context = {
         'products': products,

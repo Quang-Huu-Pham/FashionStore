@@ -40,18 +40,18 @@
                                     <i class='bx bx-left-arrow-alt'></i>
                                  </a>
                                 <div class="card-body p-5">
-                                    <h2 class="text-uppercase text-center mb-5">Login account</h2>
+                                    <h2 class="text-uppercase text-center mb-5">Đăng Nhập</h2>
 
                                     <form method="POST" action=".">
                                         {% csrf_token %} 
                                         
                                         <div class="form-outline d-flex mb-4">
-                                            <label class="form-label" for="form3Example1cg">Your Name: </label>
+                                            <label class="form-label" for="form3Example1cg">Tên của bạn: </label>
                                             <input type="text" class="form-control" name="username"/>
                                         </div>
 
                                         <div class="form-outline d-flex mb-4">
-                                            <label class="form-label" for="form3Example4cg">Password: </label>
+                                            <label class="form-label" for="form3Example4cg">Mật khẩu: </label>
                                             <input type="password" class="form-control" name="password"/>
                                         </div>
 
@@ -67,11 +67,11 @@
                                             {% endfor %} 
                                         {% endif %}
 
-                                        <button class="btn btn-primary btn-block btn-lg text-body w-100">Login</button>
+                                        <button class="btn btn-primary btn-block btn-lg text-body w-100">Đăng Nhập</button>
 
                                         <p class="text-center text-muted mt-5 mb-0">
-                                            Don't have already an account?
-                                            <a href="{% url 'register' %}" class="fw-bold text-body"><u>Register here</u></a>
+                                            Bạn chưa có tài khoản hãy
+                                            <a href="{% url 'register' %}" class="fw-bold text-body"><u>Đăng ký ngay</u></a>
                                         </p>
                                     </form>
                                 </div>

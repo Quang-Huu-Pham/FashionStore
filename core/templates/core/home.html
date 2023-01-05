@@ -96,12 +96,12 @@
                                 <i class="bx bx-chevron-right"></i>
                             </button>
                         </div>
-    
+
                         <div class="row d-flex flex-nowrap overflow-hidden mt-2" id="slide-show">
                             {% for product in products %}
                                 <div class="col col-6 col-md-4 col-lg-3 slide-item">
-                                    <a href="{% url 'product' product.id %}"class="card mb-3">
-                                        <img src="/{{product.image}}" class="card-img-top" alt="..." />
+                                    <div class="card mb-3">
+                                        <a href="{% url 'product' product.id %}"><img src="/{{product.image}}" class="card-img-top" alt="..." /></a>
                                         <div class="card-body">
                                             <h5 class="card-title">{{product.name}}</h5>
                                             <div class="d-flex justify-content-between align-items-center py-2">
@@ -125,7 +125,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -146,7 +146,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                 
+
                 {% for category in categories %}
                     {% if category.slug == active_category %}
                         <h1 class="content-title h1">{{category.name}}</h1>
@@ -159,7 +159,7 @@
                     {% endfor %}
                 </div>
                 <form method="get" action=".">
-                    <a  href="/?page=1" class="btn btn-primary mt-2"  id="see-more">See more</a>
+                    <a  href="/?page=5" class="btn btn-primary mt-2"  id="see-more">See more</a>
                 </form>
             </div>
         </div>
@@ -188,7 +188,7 @@
         console.log(itemLink.classList.contains('active'));
         itemLink.addEventListener('click', () => {
             document.querySelector('.nav-link.text-dark.menu-title.active').classList.remove('active');
-    
+
             itemLink.classList.add('active');
         });
     });
@@ -220,4 +220,3 @@
     }
 </script>
 {% endblock %}
-

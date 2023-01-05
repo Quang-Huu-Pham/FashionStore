@@ -29,28 +29,28 @@
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="card" style="border-radius: 15px">
                                 <div class="card-body p-5">
-                                    <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+                                    <h2 class="text-uppercase text-center mb-5">Đăng Ký</h2>
 
                                     <form action="." method="POST">
                                         {% csrf_token %}
 
                                         <div class="form-outline d-flex mb-4">
-                                            <label class="form-label" for="form3Example1cg">Your Name: </label>
+                                            <label class="form-label" for="form3Example1cg">Tên cuat bạn: </label>
                                             <input type="text" class="form-control" name="username" />
                                         </div>
 
                                         <div class="form-outline d-flex mb-4">
-                                            <label class="form-label" for="form3Example3cg">Your Email: </label>
+                                            <label class="form-label" for="form3Example3cg">Email: </label>
                                             <input type="email" class="form-control" name="email" />
                                         </div>
 
                                         <div class="form-outline d-flex mb-4">
-                                            <label class="form-label" for="form3Example4cg">Password: </label>
+                                            <label class="form-label" for="form3Example4cg">Mật khẩu: </label>
                                             <input type="password" class="form-control" name="password1" />
                                         </div>
 
                                         <div class="form-outline d-flex mb-4">
-                                            <label class="form-label" for="form3Example4cdg">Repeat password: </label>
+                                            <label class="form-label" for="form3Example4cdg">Nhập lại mật khẩu: </label>
                                             <input type="password" class="form-control" name="password2" />
                                         </div>
 
@@ -67,12 +67,12 @@
                                         {% endif %}
 
                                         <button class="btn btn-primary btn-block btn-lg w-100 text-white">
-                                            Register
+                                            Đăng Ký
                                         </button>
 
                                         <p class="text-center text-muted mt-5 mb-0">
-                                            Have already an account?
-                                            <a href="{% url 'login' %}" class="fw-bold text-body"><u>Login here</u></a>
+                                            Bạn đã có tài khoản hãy
+                                            <a href="{% url 'login' %}" class="fw-bold text-body"><u>Đăng nhập ngay</u></a>
                                         </p>
                                     </form>
                                 </div>
