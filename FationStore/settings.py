@@ -28,9 +28,9 @@ SECRET_KEY = 'django-insecure-74481ju48352*&(6w5b4fj**6y)_)+tl+m=w+qry4==zqla9rn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CSRF_TRUSTED_ORIGINS = ['https://fation-store-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://fashionstore-production.up.railway.app']
 
-ALLOWED_HOSTS = ['localhost', 'fation-store-production.up.railway.app']
+ALLOWED_HOSTS = ['localhost', 'fashionstore-production.up.railway.app']
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 

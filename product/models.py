@@ -38,6 +38,7 @@ class Product(models.Model):
     sold = models.IntegerField(default=False)
     classify = models.ForeignKey(
         Classify, related_name='classify', null=True, on_delete=models.CASCADE)
+    desc = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ('-created_at',)

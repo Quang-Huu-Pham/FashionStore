@@ -2,7 +2,7 @@
 {% block content %} 
 {% load static %}
 <section class="pb-5" style="margin-top: 100px">
-    <div class="container px-4 px-lg-5 my-5">
+    <div class="container bg-white rounded-2 shadow-sm p-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
                 <img class="card-img-top rounded-3 mb-5 mb-md-0" src="/{{product.image}}" alt="..." />
@@ -39,6 +39,10 @@
                     <button class="btn btn-primary flex-shrink-0 ms-2" type="button">Mua ngay</button>
                 </div>
             </div>
+        </div>
+        <div class="mt-5">
+            <h3 class="py-2">Mô tả sản phẩm</h3>
+            <p>{{product.desc|linebreaks}}</p>
         </div>
     </div>
 </section>
