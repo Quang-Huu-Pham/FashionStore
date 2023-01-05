@@ -1,0 +1,43 @@
+{% load static %}
+<style>
+    .cart-item:hover {
+        background-color: #f2f2f2;
+    }
+    .cart-image {
+        width: 40px;
+        height: 40px;
+    }
+    .cart-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .popover-body {
+        max-height: 340px;
+        padding: 6px;
+        overflow: auto;
+    }
+    .popover-body::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+
+<a
+    id="menu-cart-button"
+    href="{% url 'cart' %}"
+    class="btn position-relative p-0 mx-3 d-flex align-items-center"
+>
+    <i class="bx bx-cart-alt h4 m-0"></i>
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{cart|length}}
+    </span>
+</a>
+
+{% comment %}
+<div id="popover-cart" class="d-none">
+    <img src="{% static 'assets/undraw_Cat_re_d1sv.png'%}" class="w-100" alt="" />
+    <p class="text-center mt-2">Oh! bạn chưa có sản phẩm nào hãy thêm vào giỏ ngay nhé...</p>
+</div>
+{% endcomment %}

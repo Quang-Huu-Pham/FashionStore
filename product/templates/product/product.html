@@ -1,0 +1,80 @@
+{% extends 'core/base.html'%} {% block title %}Product Detail{% endblock %} 
+{% block content %} 
+{% load static %}
+<section class="pb-5" style="margin-top: 100px">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="card-img-top rounded-3 mb-5 mb-md-0" src="/{{product.image}}" alt="..." />
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-6 fw-bolder">{{product.name}}</h1>
+                <span class="sold">Đã bán: 15</span>
+                <div class="fs-5 mb-5 mt-3">
+                    <span class="small text-decoration-line-through">150.000 VND</span>
+                    <span class="h5">{{product.get_display_price}} VND</span>
+                </div>
+                
+                <div class="quantity mb-3">
+                    <label class="mb-2" for="inputQuantity">Số lượng: {{product.sold}}</label>
+                    <input
+                        class="form-control text-center me-3"
+                        id="inputQuantity"
+                        type="num"
+                        value="1"
+                        style="max-width: 3rem"
+                    />
+                </div>
+                <div class="d-flex">
+                    <a
+                        class="btn btn-outline-dark flex-shrink-0"
+                        type="button"
+                        hx-get="{% url 'add_to_cart' product.id %}"
+                        hx-target="#menu-cart-button"
+                        hx-swap="outerHTML"
+                    >
+                        <i class="bx bx-cart-alt me-1"></i>
+                        Add to cart
+                    </a>
+                    <button class="btn btn-primary flex-shrink-0 ms-2" type="button">Mua ngay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Related items section-->
+<section class="py-3 bg-white">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">Related products</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for releted in reletes %}
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="/{{releted.image}}" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 class="fw-bolder text-truncate">{{releted.name}}</h5>
+                            {{releted.price}} VND
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a
+                                class="btn btn-outline-dark mt-auto"
+                                hx-get="{% url 'add_to_cart' releted.id %}"
+                                hx-target="#menu-cart-button"
+                                hx-swap="outerHTML"
+                            >Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %} 

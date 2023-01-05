@@ -1,0 +1,223 @@
+{% extends 'core/base.html' %} {% block title %}Fation Store{% endblock %} {% load static %} {% block content %}
+<section class="content" style="margin-top: 100px;">
+    <div class="row mt-4 position-relative">
+        <div class="col col-md-1 col-lg-1 d-none d-sm-block position-fixed" style="top: 100px; z-index: 0">
+            <button class="navbar-toggler text-center bg-white w-100 rounded-2 mb-2 border border-1" id="collapse-btn">
+                <i class="bx bxs-chevrons-left h4 m-0"></i>
+            </button>
+            <ul class="nav flex-column bg-white h-100 rounded-2 shadow-sm border border-1" id="navbar" >
+                <li class="nav-item mb-1">
+                    <a 
+                        class="nav-link text-dark menu-title justify-content-center {% if not active_category %} active {% endif %}"
+                        aria-current="page"
+                        href="/"
+                    >
+                        <i class="bx bxs-store icon"></i>
+                        <span class="title ms-3 d-none">Home</span>
+                    </a>
+                </li>
+                {% for category in categories %}
+                <li class="nav-item mb-1">
+                    <a 
+                        class="nav-link text-dark menu-title justify-content-center {% if category.slug == active_category %} active {% endif %}"
+                        href="/?category={{ category.slug }}"
+                    >
+                        <i class="bx {{category.icon}} icon"></i>
+                        <span class="title ms-3 d-none">{{category.name}}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-12 col-sm-11 col-lg-11 content end-0 offset-md-1">
+            {% if not active_category %}
+                <div id="carouselExampleControlsNoTouching" class="carousel slide overflow-hidden shadow-sm" data-bs-touch="false">
+                    <div class="carousel-inner rounded-3">
+                        <div class="carousel-item active">
+                            <img src="{% static 'assets/poster.jpg' %}" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'assets/banner2.jpg' %}" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'assets/banner3.jpg' %}" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'assets/banner4.jpg' %}" class="d-block w-100" alt="..." />
+                        </div>
+                    </div>
+                    <button
+                        class="carousel-control-prev prev"
+                        type="button"
+                        data-bs-target="#carouselExampleControlsNoTouching"
+                        data-bs-slide="prev"
+                    >
+                        <span aria-hidden="true"><i class="bx bx-chevron-left"></i></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                        class="carousel-control-next next"
+                        type="button"
+                        data-bs-target="#carouselExampleControlsNoTouching"
+                        data-bs-slide="next"
+                    >
+                        <span aria-hidden="true"><i class="bx bx-chevron-right"></i></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <div style="margin-inline: 12px;">
+                    <div class="row mt-3 bg-white rounded-2 shadow-sm py-2">
+                        <div class="col col-12 col-md-4 d-flex justify-content-center align-items-center flex-grow-1">
+                            <i class="bx bx-car h1 text-primary"></i>
+                            <h3 class="ms-2">Free Shipping</h3>
+                        </div>
+                        <div class="col col-12 col-md-4 d-flex justify-content-center align-items-center flex-grow-1 border-start border-end">
+                            <i class="bx bx-coin-stack h1 text-primary"></i>
+                            <h3 class="ms-2">Money Back 100%</h3>
+                        </div>
+                        <div class="col col-12 col-md-4 d-flex justify-content-center align-items-center flex-grow-1">
+                            <i class="bx bx-support h1 text-primary"></i>
+                            <h3 class="ms-2">Support 24/7</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-5">
+                    <h1 class="content-title h1 d-inline-block p-2 pe-4 bg-white rounded-top m-0"><i class="bx bxs-hot icon me-2"></i>Hot</h1>
+
+                    <div class="p-3 bg-white rounded-bottom shadow-sm">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-outline-dark w-auto show-prev">
+                                <i class="bx bx-chevron-left"></i>
+                            </button>
+                            <button class="btn btn-outline-dark w-auto show-next ms-2">
+                                <i class="bx bx-chevron-right"></i>
+                            </button>
+                        </div>
+    
+                        <div class="row d-flex flex-nowrap overflow-hidden mt-2" id="slide-show">
+                            {% for product in products %}
+                                <div class="col col-6 col-md-4 col-lg-3 slide-item">
+                                    <a href="{% url 'product' product.id %}"class="card mb-3">
+                                        <img src="/{{product.image}}" class="card-img-top" alt="..." />
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{product.name}}</h5>
+                                            <div class="d-flex justify-content-between align-items-center py-2">
+                                                <div
+                                                    class="btn btn-warning link-light float-start badge rounded-pill"
+                                                    hx-get="{% url 'add_to_cart' product.id %}"
+                                                    hx-target="#menu-cart-button"
+                                                    hx-swap="outerHTML"
+                                                >
+                                                    <i class='bx bx-plus'></i>
+                                                </div>
+                                                <div>
+                                                    {% if product.old_price > 0 %}
+                                                        <small class="text-muted text-decoration-line-through me-2">
+                                                            {{product.old_price}}VND
+                                                        </small>
+                                                    {% endif %}
+                                                    <span class="card-text align-middle h6">
+                                                        {{product.price}}VND
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="products p-3 rounded-3 shadow-sm bg-white">
+                {% if not active_category %}
+                <h1 class="content-title h1">Tất cả sản phẩm</h1>
+                {% endif %}
+
+                <div class="position-relative float-end w-25">
+                    <label for="classify" class="position-absolute top-50 start-0 translate-middle-y h6 me-2 mb-0 border-1 rounded-2 ps-2"><i class='bx bx-filter-alt'></i></label>
+                    <select id="classify" class="form-select w-100 ps-5" onchange="getClassifies()">
+                        {% for classify in classifies %}
+                            <option value="{{classify.id}}" name="classify">{{classify.type}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                 
+                {% for category in categories %}
+                    {% if category.slug == active_category %}
+                        <h1 class="content-title h1">{{category.name}}</h1>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="row mt-5 pt-4">
+                    {% for product in products %}
+                        {% include 'product/product_list_item.html' %}
+                    {% endfor %}
+                </div>
+                <form method="get" action=".">
+                    <a  href="/?page=1" class="btn btn-primary mt-2"  id="see-more">See more</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    const collapse = document.querySelector('.navbar-toggler');
+    const navItem = document.querySelectorAll('.nav-link.text-dark.menu-title');
+    const content = document.querySelector('.content .row.mt-4').children;
+
+    collapse.addEventListener('click', () => {
+        navItem.forEach((item) => {
+            collapse.innerHTML = `<i class='bx bxs-chevrons-right h4 m-0'></i>`;
+            item.lastElementChild.classList.toggle('d-none');
+            item.classList.toggle('justify-content-center');
+        });
+        content[0].classList.toggle('col-xl-3');
+        content[1].classList.toggle('col-xl-9');
+        content[1].classList.toggle('offset-md-1');
+        content[1].classList.toggle('offset-md-3');
+
+    });
+
+    navItem.forEach((itemLink) => {
+        console.log(itemLink.classList.contains('active'));
+        itemLink.addEventListener('click', () => {
+            document.querySelector('.nav-link.text-dark.menu-title.active').classList.remove('active');
+    
+            itemLink.classList.add('active');
+        });
+    });
+
+    const slideShow = document.querySelector('#slide-show');
+    const btnPrev = document.querySelector('.show-prev');
+    const btnNext = document.querySelector('.show-next');
+    const favorites = document.querySelectorAll('.favorite');
+
+    btnNext.addEventListener('click', () => {
+        let cards = document.querySelectorAll('.slide-item');
+        slideShow.appendChild(cards[0]);
+    });
+
+    btnPrev.addEventListener('click', () => {
+        let cards = document.querySelectorAll('.slide-item');
+        slideShow.prepend(cards[cards.length - 1]);
+    });
+
+    favorites.forEach((item) => {
+        item.addEventListener('click', () => {
+            item.classList.toggle = 'primary';
+        });
+    });
+
+    const getClassifies = () => { 
+        let classify = document.getElementById('classify').value
+        window.location = '/?type='+classify;
+    }
+</script>
+{% endblock %}
+
