@@ -35,9 +35,6 @@
                 <div id="carouselExampleControlsNoTouching" class="carousel slide overflow-hidden shadow-sm" data-bs-touch="false">
                     <div class="carousel-inner rounded-3">
                         <div class="carousel-item active">
-                            <img src="{% static 'assets/poster.jpg' %}" class="d-block w-100" alt="..." />
-                        </div>
-                        <div class="carousel-item">
                             <img src="{% static 'assets/banner2.jpg' %}" class="d-block w-100" alt="..." />
                         </div>
                         <div class="carousel-item">
@@ -71,15 +68,15 @@
                     <div class="row mt-3 bg-white rounded-2 shadow-sm py-2">
                         <div class="col col-12 col-md-4 d-flex justify-content-center align-items-center flex-grow-1">
                             <i class="bx bx-car h1 text-primary"></i>
-                            <h3 class="ms-2">Free Shipping</h3>
+                            <h3 class="ms-2">Miễn Phí Vận Chuyển</h3>
                         </div>
                         <div class="col col-12 col-md-4 d-flex justify-content-center align-items-center flex-grow-1 border-start border-end">
                             <i class="bx bx-coin-stack h1 text-primary"></i>
-                            <h3 class="ms-2">Money Back 100%</h3>
+                            <h3 class="ms-2">Hoàn Tiền 100%</h3>
                         </div>
                         <div class="col col-12 col-md-4 d-flex justify-content-center align-items-center flex-grow-1">
                             <i class="bx bx-support h1 text-primary"></i>
-                            <h3 class="ms-2">Support 24/7</h3>
+                            <h3 class="ms-2">Hỗ Trợ 24/7</h3>
                         </div>
                     </div>
                 </div>
@@ -103,7 +100,7 @@
                                     <div class="card mb-3">
                                         <a href="{% url 'product' product.id %}"><img src="/{{product.image}}" class="card-img-top" alt="..." /></a>
                                         <div class="card-body">
-                                            <h5 class="card-title">{{product.name}}</h5>
+                                            <p class="card-title h6">{{product.name}}</p>
                                             <div class="d-flex justify-content-between align-items-center py-2">
                                                 <div
                                                     class="btn btn-warning link-light float-start badge rounded-pill"
@@ -138,14 +135,16 @@
                 <h1 class="content-title h1">Tất cả sản phẩm</h1>
                 {% endif %}
 
-                <div class="position-relative float-end w-25">
-                    <label for="classify" class="position-absolute top-50 start-0 translate-middle-y h6 me-2 mb-0 border-1 rounded-2 ps-2"><i class='bx bx-filter-alt'></i></label>
-                    <select id="classify" class="form-select w-100 ps-5" onchange="getClassifies()">
-                        {% for classify in classifies %}
-                            <option value="{{classify.id}}" name="classify">{{classify.type}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+                {% if active_category != 'news' %}
+                    <div class="position-relative float-end w-25">
+                        <label for="classify" class="position-absolute top-50 start-0 translate-middle-y h6 me-2 mb-0 border-1 rounded-2 ps-2"><i class='bx bx-filter-alt'></i></label>
+                        <select id="classify" class="form-select w-100 ps-5" onchange="getClassifies()">
+                            {% for classify in classifies %}
+                                <option value="{{classify.id}}" name="classify">{{classify.type}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endif%}
 
                 {% for category in categories %}
                     {% if category.slug == active_category %}
@@ -153,14 +152,20 @@
                     {% endif %}
                 {% endfor %}
 
-                <div class="row mt-5 pt-4">
-                    {% for product in products %}
-                        {% include 'product/product_list_item.html' %}
-                    {% endfor %}
+                <div class="row mt-4 pt-4" style="clear:both">
+                    {% if active_category == 'news' %}
+                        {% include 'core/news.html' %}
+                    {% else %}
+                        {% for product in products %}
+                            {% include 'product/product_list_item.html' %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
-                <form method="get" action=".">
-                    <a  href="/?page=5" class="btn btn-primary mt-2"  id="see-more">See more</a>
-                </form>
+                {% if active_category != 'news' %}
+                    <form method="get" action=".">
+                        <a  href="/?page=5" class="btn btn-primary mt-2"  id="see-more">Xem thêm</a>
+                    </form>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -185,7 +190,6 @@
     });
 
     navItem.forEach((itemLink) => {
-        console.log(itemLink.classList.contains('active'));
         itemLink.addEventListener('click', () => {
             document.querySelector('.nav-link.text-dark.menu-title.active').classList.remove('active');
 

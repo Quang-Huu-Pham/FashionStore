@@ -1,4 +1,4 @@
-<div class="col col-12 col-md-6 col-lg-3 position-relative mb-4 prod-item">
+<div class="col col-12 col-md-4 col-lg-3 position-relative mb-4 prod-item">
     {% if product.sale%}
     <div class="position-absolute sale px-2 bg-danger text-light rounded-pill" style="top: 5px; left: 15px; z-index: 1">
         Sale
@@ -6,7 +6,7 @@
     {% endif %}
     
     <div class="card">
-        <a href="{% url 'product' product.id %}">
+        <a href="{% url 'product' product.id %}" class="produc-image">
             <img src="{{product.image}}" class="card-img-top" alt="..." />
         </a>
         <div class="card-body">
@@ -33,10 +33,7 @@
                 {% endif %}
 
                 <div class="float-end">
-                    {% if product.old_price > 0%}
-                    <small class="price-hp text-decoration-line-through">{{product.old_price}} VND</small>
-                    {% endif %}
-                    <span class="price-hp h6">{{product.get_display_price}} VND</span>
+                    <span class="price-hp h6">{{product.get_display_price}}00 VND</span>
                 </div>
             </div>
         </div>

@@ -149,6 +149,14 @@ a:hover {
     top: 0;
     left: 0;
 }
+.produc-image {
+    width: 100%;
+}
+
+.produc-image img {
+    max-height: 275px;
+    object-fit: cover;
+}
 .products .prod-item {
     transition: all 0.3s linear;
 }
