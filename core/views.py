@@ -67,13 +67,9 @@ def index(request):
 
 
 @login_required
-def myprofile(request, username):
-
-    if username:
-        profile = ProfileUser.objects.get(user=request.user.id)
-        return render(request, 'core/myprofile.html', {'profile': profile})
-    else:
-        return render(request, 'core/myprofile.html')
+def myprofile(request):
+    profile = ProfileUser.objects.get(user=request.user.id)
+    return render(request, 'core/myprofile.html', {'profile': profile})
 
 
 @login_required
