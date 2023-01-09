@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %} {% block title %}My Profile{% endblock %} {% load static %} {% block content %}
 <section style="background-color: #eee; margin-top: 100px">
-    <form class="container py-5" method="post" action="">
+    <form class="container py-5" method="post"  enctype="multipart/form-data" action="">
         {% csrf_token %}
 
         <div class="mb-3">
@@ -11,7 +11,16 @@
             <label for="" class="mb-2 h5">Email</label>
             <input type="email" name="email" value="{{request.user.email}}" class="form-control">
         </div>
-        <button class="btn btn-primary">Update</button>
+
+        <div class="mb-3">
+            <label for="" class="mb-2 h5">Avatar</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*" value="" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="" class="mb-2 h5">Số điện thoại</label>
+            <input type="text" name="phone" value="{{profile.phone}}" class="form-control">
+        </div>
+        <button class="btn btn-primary">Lưu</button>
     </form>
 </section>
 

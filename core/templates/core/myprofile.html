@@ -5,6 +5,7 @@
             <div class="col-lg-5">
                 <div class="card card-body" style="background-color: #99d98c98;">
                     <h5 class="mb-3 h4">
+                        <img src="{% if profile.avatar %} /{{profile.avatar}} {% else %} https://img.freepik.com/free-icon/user_318-875902.jpg?w=2000 {% endif %}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="">
                         {{request.user.username}}
                         <a href="{% url 'edit_myprofile' %}" style="color: #9f2b68"><i class="bx bx-edit-alt"></i></a>
                     </h5>
@@ -14,6 +15,14 @@
                         </div>
                         <div class="col-sm-8 border-start">
                             <p class="text-muted mb-0">{{request.user.username}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="mb-0">Số điện thoại:</p>
+                        </div>
+                        <div class="col-sm-8 border-start">
+                            <p class="text-muted mb-0">{{profile.phone}}</p>
                         </div>
                     </div>
                     <div class="row">

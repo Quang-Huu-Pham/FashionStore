@@ -1,5 +1,6 @@
-{% extends 'core/base.html' %} {% block title %}Fation Store{% endblock %} {% load static %} {% block content %}
-<section class="content" style="margin-top: 100px;">
+{% extends 'core/base.html' %} {% block title %}Fation Store{% endblock %} {% load static %} 
+{% block content %}
+<section class="content" id="top" style="margin-top: 100px;">
     <div class="row mt-4 position-relative">
         <div class="col col-md-1 col-lg-1 d-none d-sm-block position-fixed" style="top: 100px; z-index: 0">
             <button class="navbar-toggler text-center bg-white w-100 rounded-2 mb-2 border border-1" id="collapse-btn">
@@ -8,7 +9,7 @@
             <ul class="nav flex-column bg-white h-100 rounded-2 shadow-sm border border-1" id="navbar" >
                 <li class="nav-item mb-1">
                     <a 
-                        class="nav-link text-dark menu-title justify-content-center {% if not active_category %} active {% endif %}"
+                        class="nav-link text-dark menu-title justify-content-center fs-6 {% if not active_category %} active {% endif %}"
                         aria-current="page"
                         href="/"
                     >
@@ -19,7 +20,7 @@
                 {% for category in categories %}
                 <li class="nav-item mb-1">
                     <a 
-                        class="nav-link text-dark menu-title justify-content-center {% if category.slug == active_category %} active {% endif %}"
+                        class="nav-link text-dark menu-title justify-content-center fs-6 {% if category.slug == active_category %} active {% endif %}"
                         href="/?category={{ category.slug }}"
                     >
                         <i class="bx {{category.icon}} icon"></i>
@@ -98,7 +99,9 @@
                             {% for product in products %}
                                 <div class="col col-6 col-md-4 col-lg-3 slide-item">
                                     <div class="card mb-3">
-                                        <a href="{% url 'product' product.id %}"><img src="/{{product.image}}" class="card-img-top" alt="..." /></a>
+                                        <a href="{% url 'product' product.id %}" class="produc-image">
+                                            <img src="/{{product.image}}" class="card-img-top" alt="..." />
+                                        </a>
                                         <div class="card-body">
                                             <p class="card-title h6">{{product.name}}</p>
                                             <div class="d-flex justify-content-between align-items-center py-2">
@@ -117,7 +120,7 @@
                                                         </small>
                                                     {% endif %}
                                                     <span class="card-text align-middle h6">
-                                                        {{product.price}}VND
+                                                        {{product.get_display_price}}00 VND
                                                     </span>
                                                 </div>
                                             </div>
@@ -200,7 +203,6 @@
     const slideShow = document.querySelector('#slide-show');
     const btnPrev = document.querySelector('.show-prev');
     const btnNext = document.querySelector('.show-next');
-    const favorites = document.querySelectorAll('.favorite');
 
     btnNext.addEventListener('click', () => {
         let cards = document.querySelectorAll('.slide-item');
@@ -212,15 +214,9 @@
         slideShow.prepend(cards[cards.length - 1]);
     });
 
-    favorites.forEach((item) => {
-        item.addEventListener('click', () => {
-            item.classList.toggle = 'primary';
-        });
-    });
-
     const getClassifies = () => { 
         let classify = document.getElementById('classify').value
         window.location = '/?type='+classify;
-    }
+    };
 </script>
 {% endblock %}

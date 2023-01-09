@@ -46,12 +46,12 @@
                                         {% csrf_token %} 
                                         
                                         <div class="form-outline d-flex mb-4">
-                                            <label class="form-label" for="form3Example1cg">Tên của bạn: </label>
+                                            <label class="form-label" for="username">Tên của bạn: </label>
                                             <input type="text" class="form-control" name="username"/>
                                         </div>
 
                                         <div class="form-outline d-flex mb-4">
-                                            <label class="form-label" for="form3Example4cg">Mật khẩu: </label>
+                                            <label class="form-label" for="password">Mật khẩu: </label>
                                             <input type="password" class="form-control" name="password"/>
                                         </div>
 
@@ -66,6 +66,7 @@
                                                 <p class="text-danger bg-light p-2 rounded-2">{{ error }}</p>
                                             {% endfor %} 
                                         {% endif %}
+
 
                                         <button class="btn btn-primary btn-block btn-lg text-body w-100">Đăng Nhập</button>
 

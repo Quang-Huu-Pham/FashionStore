@@ -4,8 +4,9 @@
         background-color: #f2f2f2;
     }
     .cart-image {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
     }
     .cart-title {
         display: -webkit-box;
@@ -24,20 +25,35 @@
     }
 </style>
 
-<a
-    id="menu-cart-button"
-    href="{% url 'cart' %}"
-    class="btn position-relative p-0 mx-3 d-flex align-items-center"
->
-    <i class="bx bx-cart-alt h4 m-0"></i>
-    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-        {{cart|length}}
-    </span>
-</a>
+<div class="dropdown">
+    <a
+        id="menu-cart-button"
+        href="{% url 'cart' %}"
+        class="btn position-relative p-0 mx-3 d-flex align-items-center"
+    >
+        <i class="bx bx-cart-alt h4 m-0"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{cart|length}}
+        </span>
+    </a>
 
-{% comment %}
-<div id="popover-cart" class="d-none">
-    <img src="{% static 'assets/undraw_Cat_re_d1sv.png'%}" class="w-100" alt="" />
-    <p class="text-center mt-2">Oh! bạn chưa có sản phẩm nào hãy thêm vào giỏ ngay nhé...</p>
+    {% comment %}
+        <ul class="dropdown-menu end-0" aria-labelledby="dropdownMenuButton" style="max-width: 400px; max-height: 40vh; overflow: auto;">
+            {% if cart %}
+                <a href="{% url 'cart' %}" class="float-end text-muted me-2">Chi tiết giỏ hàng</a>
+                {% for item in cart %}
+                    <li class="dropdown-item d-flex my-2" href="{% url 'myprofile' %}" style="max-width: 400px">
+                        <img src="{{item.product.image}}" class="rounded-1 cart-image" alt="">
+                        <span class="ms-2 cart-title">
+                            <p class="mb-1">{{item.product.name}}</p>
+                            <span class="text-danger">{{item.product.price}} VND</span>
+                        </span>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <img src="{% static 'assets/undraw_Cat_re_d1sv.png'%}" class="w-100" style="min-width: 370px;" alt=""/>
+                <p class="text-center text-muted mt-2">Oh! bạn chưa có sản phẩm nào hãy thêm vào giỏ ngay nhé...</p>
+            {% endif %}
+        </ul>
+    {% endcomment %}
 </div>
-{% endcomment %}
