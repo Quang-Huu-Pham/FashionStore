@@ -104,7 +104,7 @@
                                 {% if user.is_staff %}
                                     <a class="dropdown-item" href="/admin">Quản trị</a>
                                 {% endif %}
-                                <a class="dropdown-item" href="{% url 'myprofile' %}">Tài khoản</a>
+                                <a class="dropdown-item" href="{% url 'myprofile' user.username %}">Tài khoản</a>
                                 <a class="dropdown-item" href="{% url 'logout' %}">Đăng xuất</a>
                             </div>
                         </div>
@@ -219,9 +219,11 @@
                 collaborate.classList.remove('d-none')
             }, 0);
 
-            setTimeout(() => {
-                message.classList.add('d-none')
-            }, 3000);
+            if(message) {
+                setTimeout(() => {
+                    message.classList.add('d-none')
+                }, 3000);
+            }
         </script>
         <script>
             window.onscroll = function() {

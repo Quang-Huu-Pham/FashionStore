@@ -29,8 +29,10 @@ def index(request):
     categories = Category.objects.all()
     classifies = Classify.objects.all()
 
-    if request.user.username:
+    if request.user.id:
         profile = ProfileUser.objects.get(user=request.user.id)
+    else:
+        profile = None
 
     active_category = request.GET.get('category', '')
 
@@ -65,10 +67,13 @@ def index(request):
 
 
 @login_required
-def myprofile(request):
-    profile = ProfileUser.objects.get(user=request.user.id)
+def myprofile(request, username):
 
-    return render(request, 'core/myprofile.html', {'profile': profile})
+    if username:
+        profile = ProfileUser.objects.get(user=request.user.id)
+        return render(request, 'core/myprofile.html', {'profile': profile})
+    else:
+        return render(request, 'core/myprofile.html')
 
 
 @login_required
