@@ -2,8 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.db.models import Q
 from django.shortcuts import render, redirect
+import datetime
 from .models import ProfileUser
 from .forms import RegistrationForm, UserProfileForm
+from order.models import OrderItem
 
 from product.models import Product, Category, Classify
 # Create your views here.
@@ -49,11 +51,13 @@ def index(request):
 
     if type:
         products = Product.objects.filter(classify=type)
+        return render(request, 'product/product_list.html', {'products': products})
 
     page = request.GET.get('page', '')
 
     if page:
         products = Product.objects.all()[0:8+int(page)]
+        return render(request, 'product/product_list.html', {'products': products})
 
     context = {
         'products': products,
@@ -64,6 +68,15 @@ def index(request):
     }
 
     return render(request, 'core/home.html', context)
+
+
+def filter_price(request, action):
+    if action == 'short':
+        products = Product.objects.order_by('-price')
+    elif action == 'tall':
+        products = Product.objects.order_by('price')
+
+    return render(request, 'product/product_list.html', {'products': products})
 
 
 @login_required
@@ -88,3 +101,16 @@ def edit_myprofile(request):
         return redirect('myprofile')
 
     return render(request, 'core/edit_myprofile.html', {'profile': profile})
+
+
+def analytics(request):
+    order = OrderItem.objects.all()
+
+    statistical = 0
+
+    for item in order:
+        dateOrder = item.order.created_at
+        if (str(dateOrder)[:10] == str(datetime.date(2023, 1, 11))):
+            statistical += item.quantity
+
+    return render(request, 'core/analytics.html', {'statistical': statistical})

@@ -60,7 +60,7 @@
                     <a class="h3" href="/" style="font-family: 'Roboto Condensed', sans-serif;">FASHION STORE</a>
                 </div>
 
-                <div class="col col-4 col-md-5 col-lg-5">
+                <div class="col col-4 col-md-5 col-lg-5 position-relative">
                     <form class="w-100" method="get" action=".">
                         <div class="input-group">
                             <input
@@ -76,6 +76,13 @@
                             </div>
                         </div>
                     </form>
+                    {% comment %}
+                        <ul class="position-absolute top-0 w-100 rounded-2 shadow-sm border bg-white py-2 ps-0 m-0" style="transform: translateY(50%);">
+                            <li class=""><a class="d-block px-3" href="">abcxyz</a></li>
+                            <li class=""><a class="d-block px-3" href="">abcxyz</a></li>
+                            <li class=""><a class="d-block px-3" href="">abcxyz</a></li>
+                        </ul>
+                    {% endcomment %}
                 </div>
 
                 <div class="col col-4 col-md-4 col-lg-4">
@@ -103,6 +110,7 @@
                             <div class="dropdown-menu end-0" aria-labelledby="dropdownMenuButton">
                                 {% if user.is_staff %}
                                     <a class="dropdown-item" href="/admin">Quản trị</a>
+                                    <a class="dropdown-item" href="{% url 'analytics' %}">Thống kê</a>
                                 {% endif %}
                                 <a class="dropdown-item" href="{% url 'myprofile' %}">Tài khoản</a>
                                 <a class="dropdown-item" href="{% url 'logout' %}">Đăng xuất</a>

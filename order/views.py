@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.conf import settings
 
 from cart.cart import Cart
 from .models import Order, OrderItem
@@ -36,5 +38,11 @@ def start_order(request):
             item = OrderItem.objects.create(
                 order=order, product=product, quantity=quantity, price=price)
 
+        subject = 'Fashion Store'
+        content = 'Chào ' + str(order.user) + ' ! \nBạn đã đặt hàng thành công tại Fashion Store.\nTổng đơn hàng cần thanh toán là: ' + \
+            str(int(order.paid_amount) + 20000) + \
+            ' VND. Vui lòng thanh toán khi nhận hàng.\nCảm ơn ❤❤❤.'
+        send_mail(subject, content, settings.EMAIL_HOST_USER,
+                  [order.email], fail_silently=False)
         return redirect('myprofile')
     return redirect('cart')

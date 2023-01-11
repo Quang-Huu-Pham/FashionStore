@@ -135,17 +135,60 @@
 
             <div class="products p-3 rounded-3 shadow-sm bg-white">
                 {% if not active_category %}
-                <h1 class="content-title h1">Tất cả sản phẩm</h1>
+                    <h1 class="content-title h1">Tất cả sản phẩm</h1>
                 {% endif %}
 
                 {% if active_category != 'news' %}
-                    <div class="position-relative float-end w-25">
-                        <label for="classify" class="position-absolute top-50 start-0 translate-middle-y h6 me-2 mb-0 border-1 rounded-2 ps-2"><i class='bx bx-filter-alt'></i></label>
-                        <select id="classify" class="form-select w-100 ps-5" onchange="getClassifies()">
-                            {% for classify in classifies %}
-                                <option value="{{classify.id}}" name="classify">{{classify.type}}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="d-flex justify-content-end">
+                        <div class="dropdown">
+                            <div
+                                class="btn dropdown-toggle border ms-3"
+                                id="dropdownFilterTypeButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >Lọc theo loại sản phẩm</div>
+                            <div class="dropdown-menu end-0" aria-labelledby="dropdownFilterTypeButton">
+                                {% for classify in classifies %}
+                                    <a
+                                        class="dropdown-item"
+                                        hx-get="/?type={{classify.id}}"
+                                        hx-target="#filter-price-product"
+                                        hx-swap="outerHTML"
+                                    >
+                                        {{classify.type}}
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+    
+                        <div class="dropdown">
+                            <div
+                                class="btn dropdown-toggle border ms-3"
+                                id="dropdownFilterButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >Giá</div>
+                            <div class="dropdown-menu end-0" aria-labelledby="dropdownFilterButton">
+                                <a
+                                    class="dropdown-item"
+                                    hx-get="/filter_price/short/"
+                                    hx-target="#filter-price-product"
+                                    hx-swap="outerHTML"
+                                >
+                                    Thấp đến cao
+                                </a>
+                                <a
+                                    class="dropdown-item"
+                                    hx-get="/filter_price/tall/"
+                                    hx-target="#filter-price-product"
+                                    hx-swap="outerHTML"
+                                >
+                                    Cao đến thấp
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 {% endif%}
 
@@ -155,18 +198,20 @@
                     {% endif %}
                 {% endfor %}
 
-                <div class="row mt-4 pt-4" style="clear:both">
-                    {% if active_category == 'news' %}
-                        {% include 'core/news.html' %}
-                    {% else %}
-                        {% for product in products %}
-                            {% include 'product/product_list_item.html' %}
-                        {% endfor %}
-                    {% endif %}
-                </div>
+                
+                {% include 'product/product_list.html' %}
+
                 {% if active_category != 'news' %}
                     <form method="get" action=".">
-                        <a  href="/?page=5" class="btn btn-primary mt-2"  id="see-more">Xem thêm</a>
+                        <a
+                            class="btn btn-primary mt-2"
+                            id="see-more"
+                            hx-get="/?page=8"
+                            hx-target="#filter-price-product"
+                            hx-swap="outerHTML"
+                        >
+                            Xem thêm
+                        </a>
                     </form>
                 {% endif %}
             </div>
@@ -213,10 +258,5 @@
         let cards = document.querySelectorAll('.slide-item');
         slideShow.prepend(cards[cards.length - 1]);
     });
-
-    const getClassifies = () => { 
-        let classify = document.getElementById('classify').value
-        window.location = '/?type='+classify;
-    };
 </script>
 {% endblock %}

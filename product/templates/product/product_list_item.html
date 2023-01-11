@@ -1,3 +1,19 @@
+<style>
+    .prod-item {
+        animation: effect-product 0.5s ease;
+    }
+    @keyframes effect-product {
+        from {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
 <div class="col col-12 col-md-4 col-lg-3 position-relative mb-4 prod-item">
     {% if product.sale%}
     <div class="position-absolute sale px-2 bg-danger text-light rounded-pill" style="top: 5px; left: 15px; z-index: 1">
@@ -7,7 +23,7 @@
     
     <div class="card">
         <a href="{% url 'product' product.id %}" class="produc-image">
-            <img src="{{product.image}}" class="card-img-top" alt="..." />
+            <img src="/{{product.image}}" class="card-img-top" alt="..." />
         </a>
         <div class="card-body">
             <h6 class="card-title mb-3">{{product.name}}</h6>

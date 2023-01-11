@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %} {% block title %}My Profile{% endblock %} {% load static %} {% block content %}
+<div id="chartContainer" class="container rounded-2 shadow-sm p-0" style="height: 300px; margin-top: 120px"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+    window.onload = function () {
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        exportEnabled: false,
+        theme: "light1", // "light1", "light2", "dark1", "dark2"
+        title:{
+            text: "Thống kê doanh số"
+        },
+          axisY: {
+          includeZero: true
+        },
+        data: [{
+            type: "area", //change type to bar, line, area, pie, etc
+            //indexLabel: "{y}", //Shows y value on all Data Points
+            indexLabelFontColor: "#5A5757",
+              indexLabelFontSize: 16,
+            indexLabelPlacement: "outside",
+            dataPoints: [
+                { label: 'Jan', y: parseInt('{{statistical}}') },
+                { label: 'Feb', y: 0 },
+                { label: 'Mar', y: 0 },
+                { label: 'Apr', y: 0 },
+                { label: 'May', y: 0 },
+                { label: 'Jun', y: 0 },
+                { label: 'Jul', y: 0 },
+                { label: 'Aug', y: 0 },
+                { label: 'Sep', y: 0 },
+                { label: 'Oct', y: 0 },
+                { label: 'Nov', y: 0 },
+                { label: 'Dec', y: 0 },
+            ]
+        }]
+    });
+    chart.render();
+
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,9 @@
+<div class="row mt-4 pt-4" id="filter-price-product" style="clear:both">
+    {% if active_category == 'news' %}
+        {% include 'core/news.html' %}
+    {% else %}
+        {% for product in products %}
+            {% include 'product/product_list_item.html' %}
+        {% endfor %}
+    {% endif %}
+</div>
